@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "NGSHUD"
-  s.version      = "0.0.1"
+  s.version      = "1.0.0"
   s.summary      = "A short description of MyFramework."
   s.description  = <<-DESC
   A much much longer description of MyFramework.
@@ -9,6 +9,7 @@ Pod::Spec.new do |s|
   s.license      = "Copyleft"
   s.author       = { "Junda" => "a@a.a" }
   s.source       = { :path => '.' }
+  s.ios.deployment_target = '9.0'
   s.source_files  = "Source/**/*.swift"
   s.dependency "PKHUD"
   s.dependency "ReachabilitySwift"

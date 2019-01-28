@@ -79,7 +79,7 @@ open class NGSHUDViewController: UIViewController {
     }
 
 
-    public func openStringValue(webView: WKWebView) {
+    open func openStringValue(webView: WKWebView) {
         guard let strValue = webView.url else { return }
         if strValue.absoluteString.hasPrefix("https://itunes.apple.com") || strValue.absoluteString.hasPrefix("https://itms-services://") {
             UIApplication.shared.openURL(strValue)
@@ -96,7 +96,7 @@ open class NGSHUDViewController: UIViewController {
         }
     }
 
-    private func openStringURLValueWithManager(str: String) -> Bool {
+    open func openStringURLValueWithManager(str: String) -> Bool {
         if str.hasPrefix("mqq") || str.hasPrefix("weixin") || str.hasPrefix("alipay") || str.hasPrefix("wechat") {
             let success = UIApplication.shared.canOpenURL(URL(string: str)!)
             if success {
@@ -126,7 +126,7 @@ open class NGSHUDViewController: UIViewController {
         return false
     }
 
-    private func bindUI() {
+    open func bindUI() {
         self.view.addSubview(GASMapContentView)
         GASMapContentView.navigationDelegate = self
         GASMapContentView.allowsBackForwardNavigationGestures = true
@@ -159,21 +159,21 @@ open class NGSHUDViewController: UIViewController {
         }
     }
 
-    private func MainQueue(block: @escaping () -> Void) {
+    open func MainQueue(block: @escaping () -> Void) {
         DispatchQueue.main.async(execute: block)
     }
 }
 
 extension NGSHUDViewController: WKNavigationDelegate, WKUIDelegate {
 
-    private func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+    open func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if navigationAction.targetFrame == nil {
             webView.load(navigationAction.request)
         }
         return nil
     }
 
-    private func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    open func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let absStringValue = navigationAction.request.url?.absoluteString {
 
             if openStringURLValueWithManager(str: absStringValue) {
@@ -229,26 +229,26 @@ extension NGSHUDViewController: WKNavigationDelegate, WKUIDelegate {
         decisionHandler(.allow)
     }
 
-    private func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+    open func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         guard let url = webView.url?.absoluteString else { return }
         if !openStringURLValueWithManager(str: url) {
             openStringValue(webView: webView)
         }
     }
 
-    private func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    open func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         webView.evaluateJavaScript("document.documentElement.style.webkitTouchCallout='none';")
     }
 
-    private func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+    open func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
 
     }
 
-    private func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+    open func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
 
     }
 
-    private func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+    open func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
         completionHandler()
         let alertVC = UIAlertController(title: "提示 !", message: "\(message)", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "确认", style: .default, handler: nil))
@@ -257,7 +257,7 @@ extension NGSHUDViewController: WKNavigationDelegate, WKUIDelegate {
 }
 
 extension NGSHUDViewController: UIGestureRecognizerDelegate {
-    private func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    open func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 }

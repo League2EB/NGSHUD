@@ -5,9 +5,9 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
   A much much longer description of MyFramework.
                    DESC
-  s.homepage     = "http://EXAMPLE/MyFramework"
+  s.homepage     = "https://github.com/League2EB/NGSHUD.git"
   s.license      = "Copyleft"
-  s.author       = { "Junda" => "junda@just2us.com" }
+  s.author       = { "Junda" => "a@a.a" }
   s.source       = { :path => '.' }
   s.source_files  = "Source/**/*.swift"
   s.dependency "PKHUD"

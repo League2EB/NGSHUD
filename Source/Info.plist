@@ -10,6 +10,49 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+    <key>NSCameraUsageDescription</key>
+    <string>我們需要訪問您的手機攝像頭來拍照</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>點選「好」：油價資訊圖會儲存至您手機相簿。</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>點選「好」：油價資訊圖會儲存至您手機相簿。</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>fb</string>
+        <string>comgooglemaps</string>
+        <string>alipay</string>
+        <string>alipays</string>
+        <string>alipayshare</string>
+        <string>itms-apps</string>
+        <string>itms-services</string>
+        <string>mqq</string>
+        <string>mqqapi</string>
+        <string>mqqapis</string>
+        <string>mqqbrowser</string>
+        <string>mqqconnect</string>
+        <string>mqqopensdkapi</string>
+        <string>mqqopensdkapiV2</string>
+        <string>mqqopensdkapiV3</string>
+        <string>mqqopensdkapiV4</string>
+        <string>mqqopensdkdataline</string>
+        <string>mqqopensdkfriend</string>
+        <string>mqqopensdkgrouptribeshare</string>
+        <string>mqqOpensdkSSoLogin</string>
+        <string>mqqs</string>
+        <string>mqqwpa</string>
+        <string>mqzone</string>
+        <string>mqzoneopensdk</string>
+        <string>mqzoneopensdkapi</string>
+        <string>mqzoneopensdkapi19</string>
+        <string>mqzoneopensdkapiV2</string>
+        <string>mqzoneshare</string>
+        <string>mqzonev2</string>
+        <string>mqzonewx</string>
+        <string>mttbrowser</string>
+        <string>sinaweibo</string>
+        <string>sinaweibohd</string>
+        <string>sinaweibosso</string>
+    </array>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>

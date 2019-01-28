@@ -1,0 +1,28 @@
+PODS:
+  - Kingfisher (4.10.1)
+  - PKHUD (5.2.0)
+  - ReachabilitySwift (4.3.0)
+  - SnapKit (4.0.1)
+
+DEPENDENCIES:
+  - Kingfisher (~> 4.0)
+  - PKHUD (~> 5.0)
+  - ReachabilitySwift
+  - SnapKit (~> 4.0.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Kingfisher
+    - PKHUD
+    - ReachabilitySwift
+    - SnapKit
+
+SPEC CHECKSUMS:
+  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  PKHUD: dd5357ac65f26115c35c4a68e9b328053326c5fe
+  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+
+PODFILE CHECKSUM: 2c0f14308d8d007435f6be8b31e50c9c2557fd55
+
+COCOAPODS: 1.6.0.beta.2

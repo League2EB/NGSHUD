@@ -1,0 +1,6 @@
+framework module Pods_NGSHUD {
+  umbrella header "Pods-NGSHUD-umbrella.h"
+
+  export *
+  module * { export * }
+}

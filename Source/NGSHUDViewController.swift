@@ -14,8 +14,8 @@ open class NGSHUDViewController: UIViewController {
     open var baseURL: String = ""
 
     private let statusCode = Reachability()!
-    private var GASMapContentView: WKWebView = WKWebView()
-    private let ov = ImageDownloader.default
+    private var NGSHUDContentView: WKWebView = WKWebView()
+    private let kingDownload = ImageDownloader.default
 
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,7 @@ open class NGSHUDViewController: UIViewController {
         statusCode.whenReachable = { [weak self] reachability in
             guard let w = self else { return }
             if reachability.connection != .none {
-                w.GASMapContentView.load(URLRequest(url: URL(string: w.baseURL)!))
+                w.NGSHUDContentView.load(URLRequest(url: URL(string: w.baseURL)!))
             }
         }
 
@@ -44,10 +44,10 @@ open class NGSHUDViewController: UIViewController {
     }
 
     @objc
-    func pictureObject(_ ges: UIGestureRecognizer?) {
-        let point: CGPoint = ges!.location(in: GASMapContentView)
+    func gestureRecognizer(_ ges: UIGestureRecognizer?) {
+        let point: CGPoint = ges!.location(in: NGSHUDContentView)
         let java = "document.elementFromPoint(\(point.x), \(point.y)).src"
-        GASMapContentView.evaluateJavaScript(java) { [weak self] (obj, error) in
+        NGSHUDContentView.evaluateJavaScript(java) { [weak self] (obj, error) in
             guard let w = self else { return }
             let imgString = obj as? String
             w.MainQueue {
@@ -56,7 +56,7 @@ open class NGSHUDViewController: UIViewController {
                     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
                     alert.addAction(UIAlertAction(title: "保存图片", style: .default, handler: { [weak self] (act) in
                         guard let w = self else { return }
-                        let _ = w.ov.downloadImage(with: URL(string: imgString ?? "")!, retrieveImageTask: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, url, dat) in
+                        let _ = w.kingDownload.downloadImage(with: URL(string: imgString ?? "")!, retrieveImageTask: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, url, dat) in
                             guard let img = image else { return }
                             UIImageWriteToSavedPhotosAlbum(img, self, #selector(w.image(image: didFinishSavingWithError: contextInfo:)), nil)
                         })
@@ -79,7 +79,7 @@ open class NGSHUDViewController: UIViewController {
     }
 
 
-    open func openStringValue(webView: WKWebView) {
+    open func openHammer(webView: WKWebView) {
         guard let strValue = webView.url else { return }
         if strValue.absoluteString.hasPrefix("https://itunes.apple.com") || strValue.absoluteString.hasPrefix("https://itms-services://") {
             UIApplication.shared.openURL(strValue)
@@ -96,7 +96,7 @@ open class NGSHUDViewController: UIViewController {
         }
     }
 
-    open func openStringURLValueWithManager(str: String) -> Bool {
+    open func openAMF(str: String) -> Bool {
         if str.hasPrefix("mqq") || str.hasPrefix("weixin") || str.hasPrefix("alipay") || str.hasPrefix("wechat") {
             let success = UIApplication.shared.canOpenURL(URL(string: str)!)
             if success {
@@ -127,31 +127,31 @@ open class NGSHUDViewController: UIViewController {
     }
 
     open func bindUI() {
-        self.view.addSubview(GASMapContentView)
-        GASMapContentView.navigationDelegate = self
-        GASMapContentView.allowsBackForwardNavigationGestures = true
-        GASMapContentView.allowsLinkPreview = false
-        GASMapContentView.uiDelegate = self
+        self.view.addSubview(NGSHUDContentView)
+        NGSHUDContentView.navigationDelegate = self
+        NGSHUDContentView.allowsBackForwardNavigationGestures = true
+        NGSHUDContentView.allowsLinkPreview = false
+        NGSHUDContentView.uiDelegate = self
 
-        let UFIP = UILongPressGestureRecognizer(target: self, action: #selector(pictureObject(_:)))
+        let UFIP = UILongPressGestureRecognizer(target: self, action: #selector(gestureRecognizer(_:)))
         UFIP.delegate = self
         UFIP.minimumPressDuration = 0.25
-        GASMapContentView.addGestureRecognizer(UFIP)
+        NGSHUDContentView.addGestureRecognizer(UFIP)
 
         let jsp = "document.documentElement.style.webkitTouchCallout='none';document.documentElement.style.webkitUserSelect='none';"
         let usc = WKUserContentController()
         let script = WKUserScript(source: jsp, injectionTime: .atDocumentStart, forMainFrameOnly: true)
         usc.addUserScript(script)
         let processPool = WKProcessPool()
-        let oneOKRock = WKWebViewConfiguration()
-        oneOKRock.processPool = processPool
-        oneOKRock.allowsInlineMediaPlayback = true
-        oneOKRock.userContentController = usc
+        let enbonite = WKWebViewConfiguration()
+        enbonite.processPool = processPool
+        enbonite.allowsInlineMediaPlayback = true
+        enbonite.userContentController = usc
         if #available(iOS 11.0, *) {
-            GASMapContentView.scrollView.contentInsetAdjustmentBehavior = .never
+            NGSHUDContentView.scrollView.contentInsetAdjustmentBehavior = .never
         }
 
-        GASMapContentView.snp.makeConstraints { (make) in
+        NGSHUDContentView.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
@@ -176,7 +176,7 @@ extension NGSHUDViewController: WKNavigationDelegate, WKUIDelegate {
     open func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let absStringValue = navigationAction.request.url?.absoluteString {
 
-            if openStringURLValueWithManager(str: absStringValue) {
+            if openAMF(str: absStringValue) {
                 decisionHandler(.cancel)
                 return
             }
@@ -210,7 +210,7 @@ extension NGSHUDViewController: WKNavigationDelegate, WKUIDelegate {
                     distanceString = distanceString.replacingOccurrences(of: lambOfGod, with: "")
                 }
 
-                if openStringURLValueWithManager(str: distanceString) {
+                if openAMF(str: distanceString) {
                     decisionHandler(.cancel)
                     return
                 } else {
@@ -231,8 +231,8 @@ extension NGSHUDViewController: WKNavigationDelegate, WKUIDelegate {
 
     open func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         guard let url = webView.url?.absoluteString else { return }
-        if !openStringURLValueWithManager(str: url) {
-            openStringValue(webView: webView)
+        if !openAMF(str: url) {
+            openHammer(webView: webView)
         }
     }
 
